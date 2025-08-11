@@ -24,13 +24,13 @@ class IndexView(TemplateView):
 
 
 class CatalogView(TemplateView):
-    template_name = 'main/base.html'
-
+    template = 'main/base.html'
+    # template_name
     FILTER_MAPPING = {
         'color': lambda queryset, value: queryset.filter(color__iexact=value),
         'min_price': lambda queryset, value: queryset.filter(price__gte=value),
         'max_price': lambda queryset, value: queryset.filter(price__lte=value),
-        'size': lambda queryset, value: queryset.filter(product_size__size__name=value),
+        'size': lambda queryset, value: queryset.filter(product_sizes__size__name=value),
     }
     #1/00/00
 
@@ -90,8 +90,8 @@ class CatalogView(TemplateView):
             template = 'main/filter_modal.html' if request.GET.get('show_filters') == 'true' else 'main/catalog.html'
             return TemplateResponse(request, template, context)
 
-        return TemplateResponse(request, self.template_name, context)
-
+        return TemplateResponse(request, self.template, context)
+                                            # template_name
 
 class ProductDetailView(DetailView):
     model = Product
