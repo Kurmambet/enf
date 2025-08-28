@@ -1,0 +1,53 @@
+// {
+//     // Use IntelliSense to learn about possible attributes.
+//     // Hover to view descriptions of existing attributes.
+//     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+//     "version": "0.2.0",
+//     "configurations": [
+    
+//         {
+//             "name": "Python Debugger: Django",
+//             "type": "debugpy",
+//             "request": "launch",
+//             "program": "${workspaceFolder}/enf/manage.py",
+//             "args": [
+//                 "runserver"
+//             ],
+//             "django": true
+//         }
+//     ]
+// }
+
+
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python Debugger: Django",
+      "type": "debugpy",
+      "request": "launch",
+      // "stopOnEntry": false,
+      "program": "${workspaceFolder}/enf/manage.py",
+        "args": [
+            "runserver",
+            "8000"
+        ],
+        "django": true
+        // "debugOptions": [
+        //     "WaitOnAbnormalExit",
+        //     "WaitOnNormalExit",
+        //     "RedirectOutput",
+        //     "DjangoDebugging"
+        // ],
+        // "env": {
+        //     "DJANGO_DB_NAME": "",
+        //     "DJANGO_DB_USER": "",
+        //     "DJANGO_DB_PASSWORD": "",
+        //     "DJANGO_DB_HOST": "172.17.0.2",
+        //     "DJANGO_DB_PORT": "5432",
+        //     "DJANGO_DEBUG": "True",
+        //     "DJANGO_SETTINGS_MODULE": "settings"
+        // }
+    },
+  ]
+}

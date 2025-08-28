@@ -11,7 +11,7 @@ wheels/
 venv/
 .env
 
-.vscode
+
 .idea
 
 django.log
