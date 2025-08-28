@@ -1,0 +1,13 @@
+pg_dump -h 127.0.0.1 -p 5432 -U enfdb \
+  -d enfdb \
+  -t main_category \
+  -t main_product \
+  -t main_productsize \
+  -t main_productimage \
+  -t main_size \
+  --data-only > partial_dump.sql
+
+dropdb -U enfdb enfdb
+createdb -U enfdb enfdb
+
+psql -h 127.0.0.1 -U enfdb -d enfdb -f partial_dump.sql
