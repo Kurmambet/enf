@@ -11,3 +11,49 @@ dropdb -U enfdb enfdb
 createdb -U enfdb enfdb
 
 psql -h 127.0.0.1 -U enfdb -d enfdb -f partial_dump.sql
+
+
+
+
+
+
+
+
+
+./stripe login
+./stripe listen --forward-to localhost:8000/payment/stripe/webhook/
+
+enf v0.1.0
+├── django v5.2.5
+│   ├── asgiref v3.9.1
+│   └── sqlparse v0.5.3
+├── django-extensions v4.1
+│   └── django v5.2.5 (*)
+├── pillow v11.3.0
+├── psycopg2-binary v2.9.10
+├── pygraphviz v1.14
+├── python-dotenv v1.1.1
+├── requests v2.32.5
+│   ├── certifi v2025.8.3
+│   ├── charset-normalizer v3.4.3
+│   ├── idna v3.10
+│   └── urllib3 v2.5.0
+└── stripe v12.5.0
+    ├── requests v2.32.5 (*)
+    └── typing-extensions v4.15.0
+
+uv add django pillow requests stripe  python-dotenv psycopg2-binary django-extensions pygraphviz
+
+
+
+
+
+
+
+python manage.py graph_models -a -o erd.png
+
+-a = все приложения.
+-o erd.png = вывести картинку в файл.
+Можно ограничить конкретным приложением:
+
+python manage.py graph_models main -o main_models.png
