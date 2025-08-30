@@ -23,7 +23,7 @@ stripe_endpoint_secret = settings.STRIPE_WEBHOOK_SECRET
 
 
 def create_stripe_checkout_session(order, request):
-    cart = CartMixin.get_cart(request)
+    cart = CartMixin().get_cart(request)
     line_items = []
     for item in cart.items.select_related('product', 'product_size'):
         line_items.append({
@@ -32,7 +32,7 @@ def create_stripe_checkout_session(order, request):
                 'product_data': {
                     'name': f'{item.product.name} - {item.product_size.size.name}',
                 },
-                'unit_amount': int(item.product.size * 100),
+                'unit_amount': int(item.product.price * 100),
             },
             'quantity': item.quantity,
         })
@@ -69,14 +69,14 @@ def stripe_webhook(request):
         )
     except ValueError as e:
         return HttpResponse(status=400)
-    except stripe.error.SignatureVerificartionError as e:
+    except stripe.error.SignatureVerificationError as e:
         return HttpResponse(status=400)
     
     if event['type'] == 'checkout.session.completed':
         session = event['data']['object']
         order_id = session['metadata'].get('order_id')
         try:
-            order = Order.object.get(id=order_id)
+            order = Order.objects.get(id=order_id)
             order.status = 'processing'
             order.stripe_payment_intent_id = session.get('payment_intent')
             order.save()
@@ -84,6 +84,8 @@ def stripe_webhook(request):
             return HttpResponse(status=400)
         
     return HttpResponse(status=200)
+
+
 
 def stripe_success(request):
     session_id = request.GET.get('session_id')

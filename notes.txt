@@ -57,3 +57,12 @@ python manage.py graph_models -a -o erd.png
 Можно ограничить конкретным приложением:
 
 python manage.py graph_models main -o main_models.png
+
+
+
+для остановки зависшего сервера
+  lsof -i :8000
+  sudo netstat -tulpn | grep 8000
+  
+kill -9 <PID>
+
